@@ -27,6 +27,7 @@ export type ObligationVersion = Brand<number, "ObligationVersion">;
 export type PositiveCount = Brand<number, "PositiveCount">;
 export type LeadDays = Brand<number, "LeadDays">;
 export type DayOfMonth = Brand<number, "DayOfMonth">;
+export type MonthDayOffset = DayOfMonth | Brand<number, "MonthDayFromEnd">;
 export type EventSeq = Brand<number, "EventSeq">;
 
 export const ID_LIMIT = 128;
@@ -47,13 +48,23 @@ export const isClauseRef = (raw: string): raw is ClauseRef => isLabel(raw);
 export const isParty = (raw: string): raw is Party => isLabel(raw);
 export const isActor = (raw: string): raw is Actor => isLabel(raw);
 export const isSha256Hex = (raw: string): raw is Sha256Hex => SHA256_PATTERN.test(raw);
-export const isCalendarDate = (raw: string): raw is CalendarDate => CALENDAR_DATE_PATTERN.test(raw);
-export const isInstant = (raw: string): raw is Instant => INSTANT_PATTERN.test(raw);
+export const isCalendarDate = (raw: string): raw is CalendarDate => {
+  if (!CALENDAR_DATE_PATTERN.test(raw) || raw.startsWith("0000-")) return false;
+  const date = new Date(`${raw}T00:00:00.000Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === raw;
+};
+export const isInstant = (raw: string): raw is Instant => {
+  if (!INSTANT_PATTERN.test(raw) || !isCalendarDate(raw.slice(0, 10))) return false;
+  const date = new Date(raw);
+  return Number.isFinite(date.getTime()) && date.toISOString() === raw;
+};
 export const isTextOffset = (raw: number): raw is TextOffset => isCount(raw, 0);
 export const isObligationVersion = (raw: number): raw is ObligationVersion => isCount(raw, 1);
 export const isPositiveCount = (raw: number): raw is PositiveCount => isCount(raw, 1);
 export const isLeadDays = (raw: number): raw is LeadDays => isCount(raw, 0);
 export const isDayOfMonth = (raw: number): raw is DayOfMonth => isCount(raw, 1) && raw <= 31;
+export const isMonthDayOffset = (raw: number): raw is MonthDayOffset =>
+  Number.isSafeInteger(raw) && raw !== 0 && Math.abs(raw) <= 31;
 
 export type SourceDocument = {
   readonly sourcePath: string;
@@ -130,7 +141,7 @@ export type Recurrence =
       readonly kind: "rrule";
       readonly freq: RruleFrequency;
       readonly interval: PositiveCount;
-      readonly byMonthDay: DayOfMonth | null;
+      readonly byMonthDay: MonthDayOffset | null;
     };
 
 export const once = (on: CalendarDate): Recurrence => ({ kind: "once", on });
@@ -142,7 +153,7 @@ export const every = (interval: PositiveCount, unit: RecurrenceUnit, anchor: Cal
   anchor,
 });
 
-export const rrule = (freq: RruleFrequency, interval: PositiveCount, byMonthDay: DayOfMonth | null): Recurrence => ({
+export const rrule = (freq: RruleFrequency, interval: PositiveCount, byMonthDay: MonthDayOffset | null): Recurrence => ({
   kind: "rrule",
   freq,
   interval,

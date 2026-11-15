@@ -1,0 +1,67 @@
+[
+  {
+    "id": "discovery",
+    "userVisible": "Discover every command and its database access mode.",
+    "check": "node --test --test-name-pattern=\"^discovery:\" test/cli.test.ts"
+  },
+  {
+    "id": "selfcheck",
+    "userVisible": "Initialize storage and check the runtime, binary checksum and database health.",
+    "check": "node --test --test-name-pattern=\"^selfcheck:\" test/cli.test.ts"
+  },
+  {
+    "id": "ingest",
+    "userVisible": "Ingest text with a source checksum and stable offsets in normalized text.",
+    "check": "node --test --test-name-pattern=\"^ingest:\" test/cli.test.ts"
+  },
+  {
+    "id": "quotes",
+    "userVisible": "Accept only unique literal quotes and explain rejected proposals.",
+    "check": "node --test --test-name-pattern=\"^quotes:\" test/cli.test.ts"
+  },
+  {
+    "id": "due",
+    "userVisible": "List due work with lead time, overdue occurrences and repeatable task payloads.",
+    "check": "node --test --test-name-pattern=\"^due:\" test/cli.test.ts"
+  },
+  {
+    "id": "complete",
+    "userVisible": "Advance exactly one occurrence and preserve month-end schedules.",
+    "check": "node --test --test-name-pattern=\"^complete:\" test/cli.test.ts"
+  },
+  {
+    "id": "amendments",
+    "userVisible": "Keep one version in force across replacements and clause removals.",
+    "check": "node --test --test-name-pattern=\"^amendments:\" test/cli.test.ts"
+  },
+  {
+    "id": "readonly",
+    "userVisible": "Inspect due work and historical versions without changing stored data.",
+    "check": "node --test --test-name-pattern=\"^readonly:\" test/cli.test.ts"
+  },
+  {
+    "id": "validation",
+    "userVisible": "Reject invalid inputs with one actionable JSON envelope.",
+    "check": "node --test --test-name-pattern=\"^validation:\" test/cli.test.ts"
+  },
+  {
+    "id": "recurrence",
+    "userVisible": "Preserve occurrence ordering across month ends and leap years.",
+    "check": "node --test test/recurrence.test.ts"
+  },
+  {
+    "id": "contract",
+    "userVisible": "Use the shared JSON, determinism, path-refusal and read-only contract.",
+    "check": "npm run contract"
+  },
+  {
+    "id": "standalone",
+    "userVisible": "Read and contribute to the repository without private references.",
+    "check": "node scripts/check-standalone.mjs"
+  },
+  {
+    "id": "models",
+    "userVisible": "Check lifecycle invariants and detect deliberately broken transitions.",
+    "check": "npm run tlc"
+  }
+]

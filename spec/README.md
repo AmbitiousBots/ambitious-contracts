@@ -8,7 +8,7 @@ Run it from the repo root:
 bash spec/check.sh
 ```
 
-The script needs [mise](https://mise.jdx.dev) (it installs the pinned Java), `curl` and Node. It downloads TLC, the model checker for the TLA+ language, as `tla2tools.jar` from the address pinned in `.mise.toml`, keeps it in `~/.cache/ambitious/` and refuses a file whose SHA-256 differs from the pin. A run takes a few seconds.
+Run `mise trust && mise install` first to install the pinned Node and Java versions. The kit runner downloads TLC, the model checker for TLA+, from the address pinned in `.mise.toml`, keeps it under `~/.cache/tla2tools/` by default, and refuses a file whose SHA-256 differs from the pin. A run takes a few seconds. `scripts/check-models.mjs` retains the model-specific checks for invariant coverage, matching constants, small broken variants and at least 1,000 explored states.
 
 ## `ObligationLifecycle.tla`: the model
 

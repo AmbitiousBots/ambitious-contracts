@@ -1,0 +1,24 @@
+name: Bug report
+description: Describe behavior that differs from the documented CLI contract.
+body:
+  - type: markdown
+    attributes:
+      value: Use synthetic data. Report suspected vulnerabilities privately as described in SECURITY.md.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include the module version, Node version, command and synthetic input.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Relevant output
+      description: Remove private text, credentials and personal information.
