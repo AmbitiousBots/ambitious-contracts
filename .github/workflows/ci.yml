@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-check:
+    name: Local release checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      MISE_TRUSTED_CONFIG_PATHS: ${{ github.workspace }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Install the pinned toolchain
+        uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785
+        with:
+          version: 2026.11.8
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run depcruise
+      - run: npm test
+      - run: npm run contract
+      - run: npm run tlc
+      - run: verify/run
+      - run: npm run release:build
+      - run: npm audit
+      - name: Record the live integration boundary
+        run: echo 'Live tasks handoff is checked separately by npm run release:check with access to both release repositories. This job does not establish cross-repository release access.' >> "$GITHUB_STEP_SUMMARY"

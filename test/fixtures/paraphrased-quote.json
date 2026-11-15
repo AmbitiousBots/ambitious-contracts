@@ -1,0 +1,12 @@
+{
+  "contractId": "contract-1",
+  "obligations": [
+    {
+      "summary": "Deliver the report",
+      "party": "provider",
+      "clause_ref": "report",
+      "quote": "The provider sends a report each month.",
+      "recurrence": "every:1month@2026-01-31"
+    }
+  ]
+}
