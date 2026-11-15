@@ -1,0 +1,18 @@
+{
+  "AcceptWithoutQuoteCheck": {
+    "invariant": "OnlyVerifiedCreateTasks",
+    "because": "A proposed obligation is accepted without checking that its quote appears exactly once in the source text, so a paraphrased or ambiguous quote reaches the due list."
+  },
+  "AmendWithoutSuperseding": {
+    "invariant": "OneVersionInForce",
+    "because": "An amendment adds the new version but leaves the old one open-ended, so from the amendment's effective date two versions of the same obligation are in force."
+  },
+  "AmendKeepsOldSchedule": {
+    "invariant": "SupersededNeverDue",
+    "because": "An amendment ends the old version but leaves it active even when its next due date falls on or after the amendment's effective date, so the old version is still due on a date it no longer covers."
+  },
+  "CompleteIgnoresAmendment": {
+    "invariant": "SupersededNeverDue",
+    "because": "Completing an occurrence moves the next due date forward without looking at the date the version ends, so an ended version becomes due on a date it no longer covers."
+  }
+}
