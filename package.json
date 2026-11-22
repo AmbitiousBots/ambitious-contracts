@@ -29,12 +29,12 @@
     "esbuild": "0.28.2",
     "eslint": "10.15.0",
     "typescript": "6.0.3",
-    "fast-check": "4.10.2"
+    "fast-check": "4.11.0"
   },
   "overrides": {
     "@typescript-eslint/typescript-estree": {
-      "minimatch": "11.0.8"
+      "minimatch": "11.0.9"
     }
   },
-  "packageManager": "npm@12.2.2"
+  "packageManager": "npm@12.2.3"
 }
