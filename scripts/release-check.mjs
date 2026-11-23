@@ -7,6 +7,7 @@ import { join } from "node:path";
 const home = mkdtempSync(join(tmpdir(), "contracts-release-check-"));
 const root = join(import.meta.dirname, "..");
 const checks = [
+  ["npm", ["ls", "--all"]],
   ["npm", ["run", "typecheck"]],
   ["npm", ["run", "lint"]],
   ["npm", ["run", "depcruise"]],
