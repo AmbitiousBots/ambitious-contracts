@@ -112,10 +112,10 @@ The database is `$AMBITIOUS_HOME/contracts/contracts.sqlite`. `AMBITIOUS_HOME` d
 
 The bot's private state directory, `/home/box/agent-data`, is refused for database, JSON input and source document paths, including symbolic-link aliases. The module reads no API keys. The [module contract](MODULE_CONTRACT.md) defines the envelope and all shared behavior.
 
-`npm run release:build` writes `release/ambitious-contracts-0.1.1.mjs` and `release/SHA256SUMS`. The executable bundles the kit and migrations and runs without npm dependencies. The [kit release](https://github.com/AmbitiousBots/ambitious-kit/releases/tag/kit-v0.4.9) provides a checksum-verifying installer. After downloading and verifying that installer, install a local release with:
+`npm run release:build` writes `release/ambitious-contracts-0.1.2.mjs` and `release/SHA256SUMS`. The executable bundles the kit and migrations and runs without npm dependencies. The [kit release](https://github.com/AmbitiousBots/ambitious-kit/releases/tag/kit-v0.4.9) provides a checksum-verifying installer. After downloading and verifying that installer, install a local release with:
 
 ```sh
-node ambitious-install-0.4.9.mjs contracts 0.1.1 --from ./release
+node ambitious-install-0.4.9.mjs contracts 0.1.2 --from ./release
 ```
 
 It writes `$AMBITIOUS_HOME/bin/ambitious-contracts` and is safe to repeat. Run the installed binary's `selfcheck` on routine starts.

@@ -7,8 +7,8 @@ import { join } from "node:path";
 
 const root = join(import.meta.dirname, "..");
 const repository = "AmbitiousBots/ambitious-tasks";
-const tag = "tasks-v0.1.0";
-const asset = "ambitious-tasks-0.1.0.mjs";
+const tag = "tasks-v0.1.4";
+const asset = "ambitious-tasks-0.1.4.mjs";
 const release = spawnSync("gh", ["release", "view", tag, "-R", repository, "--json", "tagName,assets"], { encoding: "utf8", timeout: 60_000 });
 if (release.error !== undefined) throw release.error;
 if (release.status !== 0) {
