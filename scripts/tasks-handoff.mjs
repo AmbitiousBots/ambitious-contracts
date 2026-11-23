@@ -62,7 +62,8 @@ if (release.status !== 0) {
     const listed = invoke(binary, "list", { list: "contracts" });
     assert.equal(listed.tasks.length, 1);
     assert.equal(listed.tasks[0].title, payload.title);
-    assert.equal(listed.tasks[0].due, payload.due);
+    assert.match(payload.due, /^\d{4}-\d{2}-\d{2}$/u);
+    assert.equal(listed.tasks[0].due, `${payload.due}T00:00:00.000Z`);
     process.stdout.write(`tasks handoff: ${tag} checksum verified; suggested payload creates one task and is idempotent\n`);
   } finally {
     rmSync(scratch, { recursive: true, force: true });
